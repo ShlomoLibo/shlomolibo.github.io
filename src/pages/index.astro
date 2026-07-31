@@ -1,0 +1,189 @@
+---
+import { Image } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import profileImg from "@/assets/images/profile.webp";
+
+const linkClass =
+  "hover:text-accent underline decoration-dashed underline-offset-4";
+
+const ME = "Shlomo Libo Feigin";
+
+const preprints = [
+  {
+    title:
+      "Fixed-Point Reasoners: Stable and Adaptive Deep Looped Transformers",
+    authors: [
+      "Sajad Movahedi*",
+      "Vera Milovanović*",
+      "Shlomo Libo Feigin*",
+      "Alexander Theus*",
+      "Thomas Hofmann",
+      "Valentina Boeva",
+      "T. Konstantin Rusch",
+      "Antonio Orvieto",
+    ],
+    note: "*Equal contribution",
+    venue: "arXiv preprint arXiv:2606.18206",
+    year: "2026",
+    url: "https://arxiv.org/abs/2606.18206",
+  },
+  {
+    title:
+      "A Theoretical Characterization of Optimal Data Augmentations in Self-Supervised Learning",
+    authors: [
+      "Shlomo Libo Feigin",
+      "Maximilian Fleissner",
+      "Debarghya Ghoshdastidar",
+    ],
+    note: "",
+    venue: "arXiv preprint arXiv:2411.01767",
+    year: "2024",
+    url: "https://arxiv.org/abs/2411.01767",
+  },
+];
+
+const talks = [
+  {
+    title: "Improving Signal Propagation in Looped Transformers",
+    venue:
+      "Modern Numerics for Theoretical Physics seminar, Institute for Theoretical Physics, Heidelberg University",
+    date: "June 25, 2026",
+    slides: "/talks/fprm-slides.pdf",
+    event: "https://www.thphys.uni-heidelberg.de/~crescenzo/seminars.html",
+  },
+];
+---
+
+<Layout>
+  <Header />
+  <main id="main-content" class="app-layout">
+    <section id="hero" class="border-border border-b pt-6 pb-8 sm:pt-8">
+      <div
+        class="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8"
+      >
+        <Image
+          src={profileImg}
+          alt="Portrait of Shlomo Libo Feigin"
+          class="ring-accent/20 size-36 rounded-full shadow-md ring-2 sm:size-40"
+          width={320}
+          height={320}
+          loading="eager"
+        />
+        <div class="flex flex-col items-center sm:items-start">
+          <h1 class="text-center text-4xl font-bold sm:text-start sm:text-5xl">
+            Shlomo Libo Feigin
+          </h1>
+          <div class="mt-4"><Socials /></div>
+        </div>
+      </div>
+
+      <p class="mt-8">
+        I am a PhD student at the Max Planck ETH Center for Learning Systems (<a
+          class={linkClass}
+          href="https://learning-systems.org">CLS</a
+        >), advised by{" "}
+        <a class={linkClass} href="https://da.inf.ethz.ch/people/ThomasHofmann/"
+          >Thomas Hofmann</a
+        >{" "}
+        (ETH Zürich, where I am primarily based) and{" "}
+        <a class={linkClass} href="https://camail.org">T. Konstantin Rusch</a>{" "}
+        (Max Planck Institute for Intelligent Systems &amp; ELLIS Institute Tübingen).
+      </p>
+
+      <p class="mt-4">
+        My current focus is on <span class="hl">algorithmic reasoning</span> and{" "}
+        <span class="hl">out-of-distribution generalization</span>. In
+        particular, I am interested in theoretical foundations of learning to
+        reason, with a focus on the question:
+      </p>
+
+      <blockquote
+        class="border-accent bg-muted/30 my-5 rounded-e-lg border-s-4 px-5 py-3 font-medium italic"
+      >
+        What makes a task hard / easy for an iterative reasoning model to
+        solve?
+      </blockquote>
+
+      <p class="mt-4">
+        More broadly, I am interested in{" "}
+        <span class="hl">dynamical-systems perspectives</span> on deep learning
+        and in cool connections between machine learning, topics in “classical”
+        computer science (e.g. complexity theory) and physics.
+      </p>
+
+      <p class="mt-4">
+        Previously, I completed my master’s in informatics at the Technical
+        University of Munich, where I worked with{" "}
+        <a
+          class={linkClass}
+          href="https://www.cs.cit.tum.de/tfai/home/"
+          >Debarghya Ghoshdastidar</a
+        >{" "}
+        on the theory of <span class="hl">self-supervised learning</span>, and my
+        bachelor’s in computer science at Tel-Aviv University.
+      </p>
+    </section>
+
+    <section id="preprints" class="border-border border-b pt-10 pb-8">
+      <h2 class="text-2xl font-semibold tracking-wide">Preprints</h2>
+      <ul class="mt-6 space-y-8">
+        {
+          preprints.map(({ title, authors, note, venue, year, url }) => (
+            <li>
+              <a class:list={["text-lg font-medium", linkClass]} href={url}>
+                {title}
+              </a>
+              <p class="text-foreground/75 mt-1.5 text-sm">
+                {authors.map((author, i) => (
+                  <>
+                    {i > 0 && ", "}
+                    {author.replace("*", "") === ME ? (
+                      <strong>{author}</strong>
+                    ) : (
+                      author
+                    )}
+                  </>
+                ))}
+              </p>
+              <p class="text-foreground/60 mt-1 text-sm italic">
+                {venue}, {year}
+              </p>
+              {note && <p class="text-foreground/50 mt-1 text-xs">{note}</p>}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section id="talks" class="pt-10 pb-8">
+      <h2 class="text-2xl font-semibold tracking-wide">Talks</h2>
+      <ul class="mt-6 space-y-8">
+        {
+          talks.map(({ title, venue, date, slides, event }) => (
+            <li>
+              <a class:list={["text-lg font-medium", linkClass]} href={slides}>
+                {title}
+              </a>
+              <p class="text-foreground/60 mt-1 text-sm italic">
+                {venue} &middot; {date}
+              </p>
+              <p class="mt-1.5 text-sm">
+                <a class={linkClass} href={slides}>
+                  Slides (PDF)
+                </a>
+                <span class="text-foreground/40 mx-1.5">&middot;</span>
+                <a class={linkClass} href={event}>
+                  Seminar page
+                </a>
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  a,
+  button {
+    @apply outline-accent outline-offset-1 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+@utility app-layout {
+  @apply max-w-app mx-auto w-full px-4;
+}
+
+@utility active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-8;
+}
+
+/* Soft highlighter for key words */
+@utility hl {
+  @apply bg-accent/10 text-accent rounded-xs px-0.5 font-medium;
+}
+
+/* Layered light-mode backdrop: a faint accent glow up top and a warm wash on the left */
+body {
+  background-image:
+    radial-gradient(
+      52rem 30rem at 85% -8%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      46rem 28rem at -12% 16%,
+      rgba(214, 138, 60, 0.07),
+      transparent 58%
+    );
+  background-attachment: fixed;
+}
+
+[data-theme="dark"] body {
+  background-image: none;
+}
+
+:target {
+  scroll-margin-block: 1rem;
+}
